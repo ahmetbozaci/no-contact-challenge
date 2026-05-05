@@ -1,10 +1,11 @@
-const CACHE_NAME = 'no-contact-challenge-v2';
+const CACHE_NAME = 'no-contact-challenge-v3-auth';
 const APP_SHELL = [
   '/',
   '/index.html',
   '/journey.html',
   '/emergency.html',
   '/settings.html',
+  '/auth.html',
   '/app.js',
   '/offline.html',
   '/manifest.webmanifest',

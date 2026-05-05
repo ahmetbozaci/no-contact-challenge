@@ -812,21 +812,27 @@ function ensureAuthModal() {
         </div>
         <p class="modal-sub" id="authSub">Use a private account so your dashboard belongs only to you.</p>
         <div id="authAccountBox" hidden></div>
-        <form id="authForm">
-          <label class="field-label">Email</label>
-          <div class="input-row" style="margin-bottom:12px"><input type="email" id="authEmail" autocomplete="email" placeholder="you@example.com"></div>
+        <form id="authForm" novalidate>
+          <label class="field-label" for="authEmail">Email</label>
+          <div class="input-row" style="margin-bottom:12px"><input type="email" id="authEmail" autocomplete="email" placeholder="you@example.com" required></div>
           <div id="displayNameWrap">
-            <label class="field-label">Display name</label>
-            <div class="input-row" style="margin-bottom:12px"><input type="text" id="authUsername" autocomplete="nickname" placeholder="Public display name"></div>
+            <label class="field-label" for="authUsername">Display name</label>
+            <div class="input-row" style="margin-bottom:12px"><input type="text" id="authUsername" autocomplete="nickname" placeholder="Your public display name" minlength="2" maxlength="32"></div>
           </div>
-          <label class="field-label">Password</label>
-          <div class="input-row" style="margin-bottom:12px"><input type="password" id="authPassword" autocomplete="current-password" placeholder="At least 8 characters"></div>
+          <label class="field-label" for="authPassword">Password</label>
+          <div class="input-row" style="margin-bottom:8px;gap:8px"><input type="password" id="authPassword" autocomplete="current-password" placeholder="At least 8 characters" required><button type="button" class="password-toggle" data-toggle-password="authPassword">Show</button></div>
+          <div id="confirmPasswordWrap" hidden>
+            <label class="field-label" for="authPasswordConfirm">Confirm password</label>
+            <div class="input-row" style="margin-bottom:8px;gap:8px"><input type="password" id="authPasswordConfirm" autocomplete="new-password" placeholder="Type password again"><button type="button" class="password-toggle" data-toggle-password="authPasswordConfirm">Show</button></div>
+          </div>
+          <label id="termsWrap" class="terms-check" hidden><input type="checkbox" id="authTerms"> <span>I agree to the <a href="/terms.html" target="_blank" rel="noopener">Terms</a> and <a href="/privacy.html" target="_blank" rel="noopener">Privacy Policy</a>.</span></label>
           <p id="authError" class="input-error-text" style="margin-bottom:12px"></p>
           <div class="reflection-actions">
             <button type="submit" class="btn-small primary" id="authSubmitBtn">Sign in</button>
             <button type="button" class="btn-small" id="authToggleBtn">Create account</button>
             <button type="button" class="btn-small" id="forgotPasswordBtn">Forgot password?</button>
           </div>
+          <p class="modal-sub" style="font-size:12px;margin:12px 0 0">Prefer a full page? <a href="/auth.html" id="authFullPageLink">Open the sign-in page</a>.</p>
         </form>
       </div>
     </div>`;
@@ -834,6 +840,7 @@ function ensureAuthModal() {
   $('#authForm')?.addEventListener('submit', submitAuthForm);
   $('#authToggleBtn')?.addEventListener('click', () => showAuthModal(authMode === 'login' ? 'register' : 'login'));
   $('#forgotPasswordBtn')?.addEventListener('click', forgotPasswordFlow);
+  $$('#authOverlay [data-toggle-password]').forEach(btn => btn.addEventListener('click', () => togglePasswordVisibility(btn)));
 }
 
 let authMode = 'login';
@@ -845,8 +852,13 @@ function showAuthModal(mode = 'login') {
   $('#authTitle').textContent = isAccount ? 'Your account' : (isRegister ? 'Create private account' : 'Sign in');
   $('#authSub').textContent = isAccount ? 'You are signed in. Your private dashboard is tied to this account.' : 'Use email + password so other people cannot access your private notes by typing your display name.';
   $('#displayNameWrap').hidden = !isRegister;
+  $('#confirmPasswordWrap').hidden = !isRegister;
+  $('#termsWrap').hidden = !isRegister;
+  $('#authPassword')?.setAttribute('autocomplete', isRegister ? 'new-password' : 'current-password');
   $('#authSubmitBtn').textContent = isRegister ? 'Create account' : 'Sign in';
   $('#authToggleBtn').textContent = isRegister ? 'I already have an account' : 'Create account';
+  const fullPageLink = $('#authFullPageLink');
+  if (fullPageLink) fullPageLink.href = `/auth.html?mode=${isRegister ? 'register' : 'login'}`;
   const forgotBtn = $('#forgotPasswordBtn');
   if (forgotBtn) forgotBtn.hidden = isRegister || isAccount;
   $('#authForm').hidden = isAccount;
@@ -865,16 +877,42 @@ function closeAuthModal(e) {
   if (!e || e.target === $('#authOverlay')) $('#authOverlay')?.classList.remove('open');
 }
 
+function togglePasswordVisibility(button) {
+  const id = button?.getAttribute('data-toggle-password');
+  const input = id ? document.getElementById(id) : null;
+  if (!input) return;
+  const showing = input.type === 'text';
+  input.type = showing ? 'password' : 'text';
+  button.textContent = showing ? 'Show' : 'Hide';
+}
+
+function validateAuthForm() {
+  const email = ($('#authEmail')?.value || '').trim();
+  const password = $('#authPassword')?.value || '';
+  const username = ($('#authUsername')?.value || '').trim();
+  const confirm = $('#authPasswordConfirm')?.value || '';
+  const terms = $('#authTerms')?.checked;
+  if (!/^\S+@\S+\.\S+$/.test(email)) return 'Enter a valid email address.';
+  if (authMode === 'register' && username.length < 2) return 'Display name must be at least 2 characters.';
+  if (password.length < 8) return 'Password must be at least 8 characters.';
+  if (authMode === 'register' && password !== confirm) return 'Passwords do not match.';
+  if (authMode === 'register' && !terms) return 'Please agree to the Terms and Privacy Policy.';
+  return '';
+}
+
 async function submitAuthForm(e) {
   e.preventDefault();
-  const email = $('#authEmail')?.value || '';
+  const email = ($('#authEmail')?.value || '').trim();
   const password = $('#authPassword')?.value || '';
-  const username = $('#authUsername')?.value || '';
+  const passwordConfirm = $('#authPasswordConfirm')?.value || '';
+  const username = ($('#authUsername')?.value || '').trim();
   const error = $('#authError');
+  const validationError = validateAuthForm();
+  if (validationError) { if (error) error.textContent = validationError; return; }
   try {
     const result = await requestJson(authMode === 'register' ? API.register : API.login, {
       method: 'POST',
-      body: JSON.stringify(authMode === 'register' ? { email, password, username } : { email, password })
+      body: JSON.stringify(authMode === 'register' ? { email, password, passwordConfirm, username, displayName: username, acceptedTerms: true } : { email, password })
     });
     currentAccount = result.user;
     currentUser = result.user.username;

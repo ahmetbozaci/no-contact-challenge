@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sign in — No Contact Challenge</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,500;0,600;1,400;1,500&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600&display=swap" rel="stylesheet">
+<link rel="manifest" href="/manifest.webmanifest">
+<link rel="apple-touch-icon" href="/icons/icon-192.svg">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  :root {
+    --green-50: #EAF3DE; --green-100: #C0DD97; --green-400: #639922; --green-600: #3B6D11; --green-800: #27500A;
+    --beige-50: #FAFAF7; --beige-100: #F5F0E8; --beige-200: #EDE8DC;
+    --gray-400: #B4B2A9; --gray-500: #888780; --gray-700: #5F5E5A; --gray-900: #2C2C2A;
+    --white: #FFFFFF; --border: rgba(0,0,0,0.08); --border-light: rgba(0,0,0,0.05); --danger: #993556;
+  }
+  body { font-family: 'DM Sans', sans-serif; background: var(--beige-100); color: var(--gray-900); min-height: 100vh; line-height: 1.6; }
+  nav { height: 60px; display:flex; align-items:center; justify-content:space-between; gap:16px; padding:0 32px; border-bottom:0.5px solid var(--border); background:rgba(245,240,232,.95); backdrop-filter:blur(12px); position:sticky; top:0; z-index:20; }
+  .logo { display:flex; align-items:center; gap:10px; color:var(--gray-900); text-decoration:none; font-family:'Lora',serif; font-size:17px; font-weight:500; }
+  .logo-mark { width:32px; height:32px; position:relative; flex-shrink:0; }
+  .logo-leaf { position:absolute; width:22px; height:22px; border-radius:50% 50% 50% 0; background:var(--green-600); transform:rotate(-45deg); top:5px; left:5px; }
+  .logo-leaf::after { content:''; position:absolute; width:1px; height:12px; background:rgba(255,255,255,.45); top:50%; left:50%; transform:translate(-50%,-50%) rotate(45deg); }
+  .nav-link { color:var(--green-600); text-decoration:none; font-size:13px; font-weight:600; }
+  .shell { max-width:1050px; margin:0 auto; padding:60px 28px 72px; display:grid; grid-template-columns:1fr 440px; gap:60px; align-items:center; }
+  .eyebrow { display:inline-flex; gap:8px; align-items:center; background:var(--green-50); border:1px solid var(--green-100); color:var(--green-600); padding:6px 12px; border-radius:999px; font-size:12px; font-weight:600; margin-bottom:22px; }
+  .dot { width:7px; height:7px; border-radius:50%; background:var(--green-400); }
+  h1 { font-family:'Lora',serif; font-size:48px; line-height:1.16; letter-spacing:-.02em; font-weight:500; margin-bottom:18px; }
+  h1 em { color:var(--green-600); }
+  .intro p { color:var(--gray-500); font-size:16px; max-width:460px; margin-bottom:26px; }
+  .mini-list { display:grid; gap:12px; max-width:440px; }
+  .mini-item { background:rgba(255,255,255,.55); border:1px solid var(--border-light); border-radius:14px; padding:14px 16px; color:var(--gray-700); font-size:13.5px; }
+  .card { background:var(--white); border:1px solid var(--border); border-radius:24px; box-shadow:0 16px 45px rgba(0,0,0,.07); overflow:hidden; }
+  .card-head { padding:28px 30px 18px; background:linear-gradient(135deg,var(--green-50),var(--beige-50)); border-bottom:1px solid var(--border-light); }
+  .card-head h2 { font-family:'Lora',serif; font-size:26px; font-weight:500; margin-bottom:8px; }
+  .card-head p { color:var(--gray-500); font-size:14px; }
+  .tabs { display:flex; gap:8px; padding:16px 20px 0; }
+  .tab { flex:1; border:1px solid var(--border); background:var(--beige-50); color:var(--gray-600); padding:10px 12px; border-radius:12px; cursor:pointer; font-family:'DM Sans',sans-serif; font-weight:600; }
+  .tab.active { background:var(--green-600); border-color:var(--green-600); color:white; }
+  form, .account-state { padding:22px 30px 30px; }
+  .field { margin-bottom:14px; }
+  label { display:block; font-size:11px; text-transform:uppercase; letter-spacing:.06em; color:var(--gray-400); font-weight:600; margin-bottom:7px; }
+  .input-row { height:46px; display:flex; align-items:center; gap:8px; background:var(--beige-100); border:1px solid var(--border); border-radius:12px; padding:0 14px; }
+  .input-row:focus-within { background:white; border-color:var(--green-400); }
+  input { width:100%; border:none; outline:none; background:transparent; font-family:'DM Sans',sans-serif; font-size:14px; color:var(--gray-900); }
+  .password-toggle { border:none; background:transparent; color:var(--green-600); font-family:'DM Sans',sans-serif; font-size:12px; font-weight:700; cursor:pointer; padding:4px 0; }
+  .terms { display:flex; align-items:flex-start; gap:9px; color:var(--gray-500); font-size:12.5px; line-height:1.45; margin:4px 0 14px; }
+  .terms input { width:auto; margin-top:3px; }
+  .terms a, .small-link { color:var(--green-600); text-decoration:none; font-weight:700; }
+  .terms a:hover, .small-link:hover { text-decoration:underline; }
+  .error { min-height:20px; color:var(--danger); font-size:13px; margin:6px 0 12px; }
+  .success { color:var(--green-600); background:var(--green-50); border:1px solid var(--green-100); border-radius:12px; padding:12px 14px; font-size:13px; margin-bottom:14px; display:none; }
+  .btn { width:100%; border:none; border-radius:12px; padding:13px 18px; background:var(--green-600); color:white; cursor:pointer; font-family:'DM Sans',sans-serif; font-size:14px; font-weight:700; }
+  .btn:hover { background:var(--green-800); }
+  .btn.secondary { background:var(--beige-200); color:var(--gray-700); margin-top:10px; }
+  .form-footer { margin-top:14px; display:flex; justify-content:space-between; gap:12px; flex-wrap:wrap; font-size:13px; color:var(--gray-500); }
+  .hidden { display:none !important; }
+  .muted { color:var(--gray-500); font-size:13px; }
+  @media (max-width: 860px) { .shell { grid-template-columns:1fr; gap:32px; padding-top:36px; } h1 { font-size:38px; } .intro p { max-width:none; } nav { padding:0 18px; } }
+</style>
+</head>
+<body>
+<nav>
+  <a href="/" class="logo"><div class="logo-mark"><div class="logo-leaf"></div></div>No Contact Challenge</a>
+  <a href="/" class="nav-link">Back to dashboard</a>
+</nav>
+<main class="shell">
+  <section class="intro">
+    <div class="eyebrow"><span class="dot"></span>Private healing account</div>
+    <h1>Keep your progress <em>protected</em> and personal.</h1>
+    <p>Create an account with email, display name, and password confirmation. Your private notes, urges, reasons, and journey data stay tied to your account.</p>
+    <div class="mini-list">
+      <div class="mini-item">🌿 Your public display name can be changed later in Settings.</div>
+      <div class="mini-item">🔐 Password confirmation helps prevent mistakes during signup.</div>
+      <div class="mini-item">🛡️ Privacy controls decide what appears in the community dashboard.</div>
+    </div>
+  </section>
+
+  <section class="card" aria-labelledby="authTitle">
+    <div class="card-head">
+      <h2 id="authTitle">Sign in</h2>
+      <p id="authSubtitle">Use your private account to continue your journey.</p>
+    </div>
+    <div class="tabs" role="tablist" aria-label="Authentication mode">
+      <button type="button" class="tab active" id="loginTab">Sign in</button>
+      <button type="button" class="tab" id="registerTab">Create account</button>
+    </div>
+    <div class="account-state hidden" id="accountState">
+      <p class="muted" id="accountText"></p>
+      <button class="btn" type="button" onclick="location.href='/'">Go to dashboard</button>
+      <button class="btn secondary" type="button" id="logoutBtn">Log out</button>
+    </div>
+    <form id="authForm" novalidate>
+      <div class="success" id="successBox"></div>
+      <div class="field">
+        <label for="emailInput">Email</label>
+        <div class="input-row"><input type="email" id="emailInput" autocomplete="email" placeholder="you@example.com" required></div>
+      </div>
+      <div class="field" id="displayNameField">
+        <label for="displayNameInput">Display name</label>
+        <div class="input-row"><input type="text" id="displayNameInput" autocomplete="nickname" placeholder="Your public display name" minlength="2" maxlength="32"></div>
+      </div>
+      <div class="field">
+        <label for="passwordInput">Password</label>
+        <div class="input-row"><input type="password" id="passwordInput" autocomplete="current-password" placeholder="At least 8 characters" required><button type="button" class="password-toggle" data-toggle="passwordInput">Show</button></div>
+      </div>
+      <div class="field" id="confirmField">
+        <label for="confirmInput">Confirm password</label>
+        <div class="input-row"><input type="password" id="confirmInput" autocomplete="new-password" placeholder="Type password again"><button type="button" class="password-toggle" data-toggle="confirmInput">Show</button></div>
+      </div>
+      <label class="terms" id="termsField"><input type="checkbox" id="termsInput"> <span>I agree to the <a href="/terms.html" target="_blank" rel="noopener">Terms</a> and <a href="/privacy.html" target="_blank" rel="noopener">Privacy Policy</a>.</span></label>
+      <div class="error" id="errorBox" role="alert"></div>
+      <button class="btn" type="submit" id="submitBtn">Sign in</button>
+      <div class="form-footer">
+        <button type="button" class="small-link" id="modeSwitch" style="border:none;background:none;cursor:pointer;font-family:inherit">Create account instead</button>
+        <button type="button" class="small-link" id="forgotBtn" style="border:none;background:none;cursor:pointer;font-family:inherit">Forgot password?</button>
+      </div>
+    </form>
+  </section>
+</main>
+<script>
+const API = {
+  session: '/api/auth/session',
+  register: '/api/auth/register',
+  login: '/api/auth/login',
+  logout: '/api/auth/logout',
+  passwordResetRequest: '/api/auth/password-reset/request',
+  passwordResetConfirm: '/api/auth/password-reset/confirm',
+  verifyEmail: '/api/auth/verify-email'
+};
+let mode = new URLSearchParams(location.search).get('mode') === 'register' ? 'register' : 'login';
+let csrfToken = null;
+const $ = (s) => document.querySelector(s);
+
+async function requestJson(url, options = {}) {
+  const method = String(options.method || 'GET').toUpperCase();
+  const headers = { 'Content-Type': 'application/json', ...(options.headers || {}) };
+  if (csrfToken && method !== 'GET') headers['X-CSRF-Token'] = csrfToken;
+  const res = await fetch(url, { headers, ...options });
+  const data = await res.json().catch(() => ({}));
+  if (!res.ok) throw new Error(data.error || 'Something went wrong.');
+  return data;
+}
+function setMode(next) {
+  mode = next;
+  const register = mode === 'register';
+  $('#loginTab').classList.toggle('active', !register);
+  $('#registerTab').classList.toggle('active', register);
+  $('#authTitle').textContent = register ? 'Create account' : 'Sign in';
+  $('#authSubtitle').textContent = register ? 'Create your private account before starting.' : 'Use your private account to continue your journey.';
+  $('#displayNameField').classList.toggle('hidden', !register);
+  $('#confirmField').classList.toggle('hidden', !register);
+  $('#termsField').classList.toggle('hidden', !register);
+  $('#passwordInput').autocomplete = register ? 'new-password' : 'current-password';
+  $('#submitBtn').textContent = register ? 'Create account' : 'Sign in';
+  $('#modeSwitch').textContent = register ? 'I already have an account' : 'Create account instead';
+  $('#forgotBtn').classList.toggle('hidden', register);
+  $('#errorBox').textContent = '';
+  $('#successBox').style.display = 'none';
+  history.replaceState(null, '', `/auth.html?mode=${register ? 'register' : 'login'}`);
+}
+function validate() {
+  const email = $('#emailInput').value.trim();
+  const password = $('#passwordInput').value;
+  const displayName = $('#displayNameInput').value.trim();
+  const confirm = $('#confirmInput').value;
+  if (!/^\S+@\S+\.\S+$/.test(email)) return 'Enter a valid email address.';
+  if (mode === 'register' && displayName.length < 2) return 'Display name must be at least 2 characters.';
+  if (password.length < 8) return 'Password must be at least 8 characters.';
+  if (mode === 'register' && password !== confirm) return 'Passwords do not match.';
+  if (mode === 'register' && !$('#termsInput').checked) return 'Please agree to the Terms and Privacy Policy.';
+  return '';
+}
+function showSuccess(message) { const box = $('#successBox'); box.textContent = message; box.style.display = 'block'; }
+function showError(message) { $('#errorBox').textContent = message || 'Something went wrong.'; }
+async function checkSession() {
+  try {
+    const session = await requestJson(API.session);
+    csrfToken = session.csrfToken || null;
+    if (session.authenticated) {
+      $('#authForm').classList.add('hidden');
+      $('.tabs').classList.add('hidden');
+      $('#accountState').classList.remove('hidden');
+      $('#accountText').innerHTML = `You are signed in as <strong>${escapeHtml(session.user.username)}</strong><br>${escapeHtml(session.user.email || '')}`;
+    }
+  } catch {}
+}
+function escapeHtml(text) {
+  const div = document.createElement('div'); div.textContent = String(text || ''); return div.innerHTML;
+}
+async function handleSubmit(e) {
+  e.preventDefault();
+  const validation = validate();
+  if (validation) return showError(validation);
+  $('#submitBtn').disabled = true;
+  try {
+    const email = $('#emailInput').value.trim();
+    const password = $('#passwordInput').value;
+    const passwordConfirm = $('#confirmInput').value;
+    const username = $('#displayNameInput').value.trim();
+    const payload = mode === 'register'
+      ? { email, password, passwordConfirm, username, displayName: username, acceptedTerms: true }
+      : { email, password };
+    const data = await requestJson(mode === 'register' ? API.register : API.login, { method: 'POST', body: JSON.stringify(payload) });
+    csrfToken = data.csrfToken || csrfToken;
+    showSuccess(mode === 'register' ? 'Account created. Check your email verification message, then continue to your dashboard.' : 'Signed in. Taking you to your dashboard...');
+    setTimeout(() => { location.href = '/'; }, 700);
+  } catch (err) { showError(err.message); }
+  finally { $('#submitBtn').disabled = false; }
+}
+async function forgotPassword() {
+  const email = $('#emailInput').value.trim() || prompt('Enter your account email:');
+  if (!email) return;
+  try {
+    const data = await requestJson(API.passwordResetRequest, { method: 'POST', body: JSON.stringify({ email }) });
+    showSuccess(data.devResetToken ? `Password reset token created for local testing: ${data.devResetToken}` : 'If that email exists, a reset link has been sent.');
+  } catch (err) { showError(err.message); }
+}
+async function handleSpecialLinks() {
+  const params = new URLSearchParams(location.search);
+  const verify = params.get('verify');
+  const reset = params.get('reset');
+  if (verify) {
+    try { await requestJson(API.verifyEmail, { method: 'POST', body: JSON.stringify({ token: verify }) }); showSuccess('Email verified. You can sign in now.'); }
+    catch (err) { showError(err.message); }
+  }
+  if (reset) {
+    const password = prompt('Enter your new password, at least 8 characters:');
+    if (!password) return;
+    const confirm = prompt('Confirm your new password:');
+    if (password !== confirm) return showError('Passwords do not match.');
+    try { await requestJson(API.passwordResetConfirm, { method: 'POST', body: JSON.stringify({ token: reset, password }) }); showSuccess('Password updated. You can sign in now.'); }
+    catch (err) { showError(err.message); }
+  }
+}
+document.querySelectorAll('[data-toggle]').forEach(btn => btn.addEventListener('click', () => {
+  const input = document.getElementById(btn.dataset.toggle);
+  if (!input) return;
+  input.type = input.type === 'password' ? 'text' : 'password';
+  btn.textContent = input.type === 'password' ? 'Show' : 'Hide';
+}));
+$('#loginTab').addEventListener('click', () => setMode('login'));
+$('#registerTab').addEventListener('click', () => setMode('register'));
+$('#modeSwitch').addEventListener('click', () => setMode(mode === 'login' ? 'register' : 'login'));
+$('#forgotBtn').addEventListener('click', forgotPassword);
+$('#authForm').addEventListener('submit', handleSubmit);
+$('#logoutBtn').addEventListener('click', async () => { try { await requestJson(API.logout, { method:'POST', body:'{}' }); } finally { location.href = '/auth.html?mode=login'; } });
+setMode(mode);
+checkSession();
+handleSpecialLinks();
+</script>
+</body>
+</html>
