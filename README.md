@@ -357,3 +357,14 @@ Read these before launch:
 - `docs/SECURITY.md`
 - `docs/BACKUP_RESTORE.md`
 - `docs/QA_CHECKLIST.md`
+
+## App page structure
+
+The app is now split into clearer pages instead of placing every user setting on the dashboard:
+
+- `/` — clean dashboard with check-in, summary stats, quick actions, community, resources, and PWA info.
+- `/journey.html` — private progress area with quote, dashboard stats, calendar, milestones, reasons started, message graveyard, relapse/reset support, guided plan, and resources.
+- `/emergency.html` — focused urge-support page with the 20-minute pause modal, breathing prompt, reasons, urge intensity, and private note saving.
+- `/settings.html` — account, privacy, reminder, profile/avatar, email verification, export, password, and delete-account controls.
+
+Mobile users also get a bottom navigation bar for Home, Journey, Help, Community, and Settings.

@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>No Contact Challenge — Shared Community App</title>
+<title>Emergency Help — No Contact Challenge</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,500;0,600;1,400;1,500&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500&display=swap" rel="stylesheet">
@@ -1593,7 +1593,7 @@
   .mobile-bottom-nav a span:first-child { font-size:18px; line-height:1; }
   .mobile-bottom-nav a.active { color:var(--green-600); background:var(--green-50); }
 
-  body[data-page="dashboard"] #progress,
+  body[data-page="emergency"] #progress,
   body[data-page="dashboard"] #launchBundleSection { display: none !important; }
   body[data-page="dashboard"] .nav-links a[data-nav="dashboard"], body[data-page="dashboard"] .mobile-bottom-nav a[data-nav="dashboard"] { color: var(--green-600); border-bottom: 1.5px solid var(--green-600); font-weight: 500; }
 
@@ -1661,7 +1661,7 @@
 <link rel="apple-touch-icon" href="/icons/icon-192.svg">
 
 </head>
-<body data-page="dashboard">
+<body data-page="emergency">
 
 <!-- NAV -->
 <nav>
@@ -1683,6 +1683,26 @@
     <a href="/journey.html" class="btn-primary">My Journey</a>
   </div>
 </nav>
+
+<section class="page-intro">
+  <div class="page-kicker">🫶 Urge support</div>
+  <h1>Emergency Help</h1>
+  <p>Use this page when you feel like contacting them, checking their profile, or sending a message you may regret.</p>
+</section>
+<section class="emergency-main">
+  <div class="emergency-panel">
+    <h2>Pause before contacting</h2>
+    <p>You do not have to decide right now. Open the 20-minute pause, breathe, write the message here instead of sending it, and let the urge pass first.</p>
+    <button type="button" class="btn-warning" onclick="document.getElementById('urgeBtn')?.click()">I feel like contacting them</button>
+    <div class="emergency-grid">
+      <div class="emergency-tip"><strong>1. Breathe</strong><br>Slow your body before making a decision.</div>
+      <div class="emergency-tip"><strong>2. Write, don’t send</strong><br>Put the message in the app instead of their inbox.</div>
+      <div class="emergency-tip"><strong>3. Wait 20 minutes</strong><br>Most urges become weaker when you delay action.</div>
+    </div>
+    <p style="font-size:13px">If you feel unsafe or at risk of harming yourself or someone else, contact local emergency services or a trusted person immediately.</p>
+  </div>
+</section>
+
 
 <!-- HERO -->
 <section class="hero" id="dashboard">

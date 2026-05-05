@@ -1,7 +1,10 @@
-const CACHE_NAME = 'no-contact-challenge-v1';
+const CACHE_NAME = 'no-contact-challenge-v2';
 const APP_SHELL = [
   '/',
   '/index.html',
+  '/journey.html',
+  '/emergency.html',
+  '/settings.html',
   '/app.js',
   '/offline.html',
   '/manifest.webmanifest',

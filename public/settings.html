@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>No Contact Challenge — Shared Community App</title>
+<title>Settings — No Contact Challenge</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,500;0,600;1,400;1,500&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500&display=swap" rel="stylesheet">
@@ -1593,7 +1593,7 @@
   .mobile-bottom-nav a span:first-child { font-size:18px; line-height:1; }
   .mobile-bottom-nav a.active { color:var(--green-600); background:var(--green-50); }
 
-  body[data-page="dashboard"] #progress,
+  body[data-page="settings"] #progress,
   body[data-page="dashboard"] #launchBundleSection { display: none !important; }
   body[data-page="dashboard"] .nav-links a[data-nav="dashboard"], body[data-page="dashboard"] .mobile-bottom-nav a[data-nav="dashboard"] { color: var(--green-600); border-bottom: 1.5px solid var(--green-600); font-weight: 500; }
 
@@ -1661,7 +1661,7 @@
 <link rel="apple-touch-icon" href="/icons/icon-192.svg">
 
 </head>
-<body data-page="dashboard">
+<body data-page="settings">
 
 <!-- NAV -->
 <nav>
@@ -1683,6 +1683,13 @@
     <a href="/journey.html" class="btn-primary">My Journey</a>
   </div>
 </nav>
+
+<section class="page-intro">
+  <div class="page-kicker">⚙️ Account & privacy</div>
+  <h1>Settings</h1>
+  <p>Manage your profile, privacy controls, reminder time, account email, password, data export, and account deletion from one dedicated page.</p>
+</section>
+
 
 <!-- HERO -->
 <section class="hero" id="dashboard">

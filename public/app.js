@@ -904,8 +904,11 @@ function attachEvents() {
   });
 
   $('.nav-cta .btn-primary')?.addEventListener('click', (e) => {
-    e.preventDefault();
-    focusUsername();
+    const href = e.currentTarget.getAttribute('href') || '';
+    if (href === '#dashboard') {
+      e.preventDefault();
+      focusUsername();
+    }
   });
 
   $('#signInBtn')?.addEventListener('click', (e) => {

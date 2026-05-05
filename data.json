@@ -1,32 +1,5 @@
 {
-  "users": [
-    {
-      "id": "ebfd560245d39c65fec836e6",
-      "username": "dsadad",
-      "usernameLower": "dsadad",
-      "email": "testing@gmail.com",
-      "emailLower": "testing@gmail.com",
-      "emailVerified": false,
-      "passwordSalt": "9616cc0f4a7263633069ca06ec359832",
-      "passwordHash": "3dafb6505192d66be820f6ede9b687e065b513942790a1bba312669f149d555e",
-      "profile": {
-        "displayName": "dsadad",
-        "bio": "",
-        "avatarColor": "sage",
-        "anonymousMode": false
-      },
-      "createdAt": "2026-05-04T22:02:06.750Z",
-      "hidden": false,
-      "privacy": {
-        "showInCommunity": true,
-        "showStreak": true,
-        "showLastCheckin": true,
-        "showMilestones": true,
-        "showMood": false,
-        "allowEncouragements": true
-      }
-    }
-  ],
+  "users": [],
   "checkins": [],
   "urgeLogs": [],
   "reasons": [],
@@ -34,38 +7,10 @@
   "relapseLogs": [],
   "encouragements": [],
   "adminActions": [],
-  "sessions": [
-    {
-      "token": "b8e9a473285c2e257d77c991575eeb8c40bf1b8e9b37de3d",
-      "userId": "ebfd560245d39c65fec836e6",
-      "csrfToken": "6f18249518fc10af88ce735568afeffd31da9b7e85825c71",
-      "createdAt": "2026-05-04T22:02:06.751Z",
-      "expiresAt": "2026-06-03T22:02:06.751Z"
-    }
-  ],
+  "sessions": [],
   "passwordResetTokens": [],
-  "emailVerificationTokens": [
-    {
-      "token": "bb5ba105f4e37382f833d334e9e6682b6dbd85d8aa3e5c35",
-      "userId": "ebfd560245d39c65fec836e6",
-      "email": "testing@gmail.com",
-      "createdAt": "2026-05-04T22:02:06.750Z",
-      "expiresAt": "2026-05-05T22:02:06.750Z",
-      "used": false
-    }
-  ],
-  "emailOutbox": [
-    {
-      "id": "c11c53ad9de2a61fc0231bda",
-      "to": "testing@gmail.com",
-      "subject": "Verify your No Contact Challenge account",
-      "text": "Verify your email here: http://localhost:3000/?verify=bb5ba105f4e37382f833d334e9e6682b6dbd85d8aa3e5c35\n\nOr paste this token into the app: bb5ba105f4e37382f833d334e9e6682b6dbd85d8aa3e5c35",
-      "type": "email_verification",
-      "createdAt": "2026-05-04T22:02:06.750Z",
-      "status": "dev-outbox",
-      "provider": "dev"
-    }
-  ],
+  "emailVerificationTokens": [],
+  "emailOutbox": [],
   "reports": [],
   "resourceViews": [],
   "planProgress": []
