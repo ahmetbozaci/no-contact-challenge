@@ -41,6 +41,12 @@
       "description": "Open the urge support page"
     },
     {
+      "name": "Create Account",
+      "short_name": "Sign up",
+      "url": "/auth.html?mode=register",
+      "description": "Create or sign in to your account"
+    },
+    {
       "name": "Settings",
       "short_name": "Settings",
       "url": "/settings.html",

@@ -462,14 +462,20 @@ function publicAccount(user) {
   return user ? { id: user.id, username: user.username, email: user.email || '', emailVerified: Boolean(user.emailVerified), profile: normalizeProfile(user.profile, user.username), createdAt: user.createdAt } : null;
 }
 
-function createAccount(data, { email, password, username }) {
+function createAccount(data, { email, password, passwordConfirm, username, displayName, acceptedTerms }) {
   const cleanEmail = normalizeEmail(email);
-  const cleanUsername = normalizeUsername(username);
+  const cleanUsername = normalizeUsername(displayName || username);
   if (!/^\S+@\S+\.\S+$/.test(cleanEmail)) {
     const err = new Error('Enter a valid email address.'); err.status = 400; throw err;
   }
   if (String(password || '').length < 8) {
     const err = new Error('Password must be at least 8 characters.'); err.status = 400; throw err;
+  }
+  if (passwordConfirm !== undefined && String(password) !== String(passwordConfirm)) {
+    const err = new Error('Passwords do not match.'); err.status = 400; throw err;
+  }
+  if (acceptedTerms !== undefined && acceptedTerms !== true) {
+    const err = new Error('You must agree to the Terms and Privacy Policy.'); err.status = 400; throw err;
   }
   if (cleanUsername.length < 2) {
     const err = new Error('Display name must be at least 2 characters.'); err.status = 400; throw err;
@@ -485,6 +491,7 @@ function createAccount(data, { email, password, username }) {
     id: uid(), username: cleanUsername, usernameLower: cleanUsername.toLowerCase(),
     email: cleanEmail, emailLower: cleanEmail, emailVerified: false, passwordSalt: salt, passwordHash: hash,
     profile: normalizeProfile({ displayName: cleanUsername }, cleanUsername),
+    acceptedTermsAt: acceptedTerms ? new Date().toISOString() : null,
     createdAt: new Date().toISOString(), hidden: false, privacy: defaultPrivacy()
   };
   data.users.push(user);
@@ -1012,9 +1019,10 @@ async function handleApi(req, res) {
       const user = createAccount(data, body);
       const verificationToken = createEmailVerificationToken(data, user);
       const token = createSession(data, user);
+      const session = data.sessions.find(s => s.token === token);
       writeData(data);
       setSessionCookie(res, token);
-      return sendJson(res, 200, { ok: true, user: publicAccount(user), devVerificationToken: typeof verificationToken !== 'undefined' ? verificationToken : undefined });
+      return sendJson(res, 200, { ok: true, user: publicAccount(user), csrfToken: session?.csrfToken || null, devVerificationToken: typeof verificationToken !== 'undefined' ? verificationToken : undefined });
     }
 
     if (req.method === 'POST' && url.pathname === '/api/auth/login') {
@@ -1023,9 +1031,10 @@ async function handleApi(req, res) {
       const user = findUserByEmail(data, body.email);
       if (!verifyPassword(body.password, user)) return sendJson(res, 401, { error: 'Email or password is incorrect.' });
       const token = createSession(data, user);
+      const session = data.sessions.find(s => s.token === token);
       writeData(data);
       setSessionCookie(res, token);
-      return sendJson(res, 200, { ok: true, user: publicAccount(user) });
+      return sendJson(res, 200, { ok: true, user: publicAccount(user), csrfToken: session?.csrfToken || null });
     }
 
     if (req.method === 'POST' && url.pathname === '/api/auth/logout') {

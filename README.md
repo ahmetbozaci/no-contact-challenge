@@ -30,6 +30,7 @@ http://localhost:3000
 
 ## What is included
 
+- Improved auth page at `/auth.html` with sign-in/create-account tabs
 - Real email + password account registration
 - Password hashing with PBKDF2 + per-user salt
 - HTTP-only session cookie login
@@ -67,11 +68,17 @@ http://localhost:3000
 Users now create an account with:
 
 - Email
-- Password
 - Public display name
+- Password
+- Confirm password
+- Terms / Privacy agreement checkbox
 
 Private actions such as check-ins, reflections, reasons, unsent messages, urge logs, relapse/reset logs, privacy settings, and encouragement sending require an active session. Other people can no longer access someone’s private dashboard just by typing their display name.
 
+
+## Auth UX update
+
+The app now includes a dedicated `/auth.html` page. Registration asks for email, display name, password, confirm password, and a Terms/Privacy agreement. The auth modal inside the app uses the same validation and includes show/hide password buttons.
 
 ## Account settings and data rights
 
