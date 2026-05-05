@@ -1,0 +1,1996 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>No Contact Challenge — Shared Community App</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,500;0,600;1,400;1,500&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --green-50: #EAF3DE;
+    --green-100: #C0DD97;
+    --green-200: #97C459;
+    --green-400: #639922;
+    --green-600: #3B6D11;
+    --green-800: #27500A;
+    --green-900: #173404;
+    --beige-50: #FAFAF7;
+    --beige-100: #F5F0E8;
+    --beige-200: #EDE8DC;
+    --amber: #BA7517;
+    --amber-light: #FAEEDA;
+    --blue: #185FA5;
+    --blue-light: #E6F1FB;
+    --pink: #993556;
+    --pink-light: #FBEAF0;
+    --gray-400: #B4B2A9;
+    --gray-500: #888780;
+    --gray-700: #5F5E5A;
+    --gray-900: #2C2C2A;
+    --white: #FFFFFF;
+    --border: rgba(0,0,0,0.08);
+    --border-light: rgba(0,0,0,0.05);
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--beige-100);
+    color: var(--gray-900);
+    font-size: 15px;
+    line-height: 1.6;
+    min-height: 100vh;
+  }
+
+  /* ── NAV ── */
+  nav {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background: rgba(245,240,232,0.95);
+    backdrop-filter: blur(12px);
+    border-bottom: 0.5px solid var(--border);
+    padding: 0 40px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 60px;
+  }
+
+  .logo {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    text-decoration: none;
+    font-family: 'Lora', serif;
+    font-size: 17px;
+    font-weight: 500;
+    color: var(--gray-900);
+  }
+
+  .logo-mark {
+    width: 32px;
+    height: 32px;
+    position: relative;
+    flex-shrink: 0;
+  }
+
+  .logo-leaf {
+    position: absolute;
+    width: 22px;
+    height: 22px;
+    border-radius: 50% 50% 50% 0;
+    background: var(--green-600);
+    transform: rotate(-45deg);
+    top: 5px;
+    left: 5px;
+  }
+
+  .logo-leaf::after {
+    content: '';
+    position: absolute;
+    width: 1px;
+    height: 12px;
+    background: rgba(255,255,255,0.45);
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) rotate(45deg);
+  }
+
+  .nav-links {
+    display: flex;
+    gap: 32px;
+    align-items: center;
+    list-style: none;
+  }
+
+  .nav-links a {
+    font-size: 13.5px;
+    color: var(--gray-500);
+    text-decoration: none;
+    font-weight: 400;
+    transition: color 0.15s;
+    padding-bottom: 2px;
+  }
+
+  .nav-links a:hover, .nav-links a.active {
+    color: var(--green-600);
+  }
+
+  .nav-links a.active {
+    border-bottom: 1.5px solid var(--green-600);
+    font-weight: 500;
+  }
+
+  .nav-cta {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+
+  .btn-ghost {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 13px;
+    color: var(--gray-700);
+    background: none;
+    border: 0.5px solid var(--border);
+    border-radius: 8px;
+    padding: 8px 16px;
+    cursor: pointer;
+    transition: background 0.15s, border-color 0.15s;
+    text-decoration: none;
+  }
+
+  .btn-ghost:hover { background: var(--beige-200); }
+
+  .btn-primary {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 13px;
+    font-weight: 500;
+    color: white;
+    background: var(--green-600);
+    border: none;
+    border-radius: 8px;
+    padding: 8px 18px;
+    cursor: pointer;
+    transition: background 0.15s;
+    text-decoration: none;
+  }
+
+  .btn-primary:hover { background: var(--green-800); }
+
+  /* ── HERO SECTION ── */
+  .hero {
+    padding: 80px 40px 60px;
+    max-width: 1100px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 1fr 420px;
+    gap: 60px;
+    align-items: center;
+  }
+
+  .hero-left { animation: fadeUp 0.6s ease both; }
+
+  .hero-tag {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    background: var(--green-50);
+    color: var(--green-600);
+    font-size: 12px;
+    font-weight: 500;
+    padding: 5px 12px;
+    border-radius: 20px;
+    border: 0.5px solid var(--green-100);
+    margin-bottom: 24px;
+    letter-spacing: 0.02em;
+  }
+
+  .hero-tag-dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: var(--green-400);
+    animation: pulse 2s ease-in-out infinite;
+  }
+
+  @keyframes pulse {
+    0%, 100% { opacity: 1; transform: scale(1); }
+    50% { opacity: 0.5; transform: scale(0.8); }
+  }
+
+  .hero-title {
+    font-family: 'Lora', serif;
+    font-size: 52px;
+    font-weight: 500;
+    line-height: 1.2;
+    color: var(--gray-900);
+    margin-bottom: 20px;
+    letter-spacing: -0.02em;
+  }
+
+  .hero-title em {
+    font-style: italic;
+    color: var(--green-600);
+  }
+
+  .hero-desc {
+    font-size: 16px;
+    color: var(--gray-500);
+    line-height: 1.7;
+    max-width: 420px;
+    margin-bottom: 36px;
+  }
+
+  .hero-actions {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    flex-wrap: wrap;
+  }
+
+  .btn-lg {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 15px;
+    font-weight: 500;
+    color: white;
+    background: var(--green-600);
+    border: none;
+    border-radius: 12px;
+    padding: 14px 28px;
+    cursor: pointer;
+    transition: background 0.15s, transform 0.1s;
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .btn-lg:hover { background: var(--green-800); }
+  .btn-lg:active { transform: scale(0.98); }
+
+  .hero-social-proof {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 13px;
+    color: var(--gray-500);
+  }
+
+  .hero-avatars {
+    display: flex;
+    margin-right: 4px;
+  }
+
+  .hero-avatars .av {
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    border: 2px solid var(--beige-100);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 10px;
+    font-weight: 500;
+    margin-left: -8px;
+  }
+
+  .hero-avatars .av:first-child { margin-left: 0; }
+
+  .hero-right {
+    animation: fadeUp 0.6s 0.1s ease both;
+  }
+
+  /* ── CHECKIN CARD ── */
+  .checkin-card {
+    background: white;
+    border-radius: 20px;
+    border: 0.5px solid var(--border);
+    overflow: hidden;
+    box-shadow: 0 4px 32px rgba(0,0,0,0.06);
+  }
+
+  .checkin-card-header {
+    background: linear-gradient(135deg, var(--green-50) 0%, var(--beige-50) 100%);
+    padding: 28px 28px 24px;
+    border-bottom: 0.5px solid var(--border-light);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .checkin-card-title {
+    font-family: 'Lora', serif;
+    font-size: 20px;
+    font-weight: 500;
+    color: var(--gray-900);
+  }
+
+  .streak-badge {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    background: var(--amber-light);
+    color: var(--amber);
+    font-size: 12px;
+    font-weight: 500;
+    padding: 5px 10px;
+    border-radius: 20px;
+  }
+
+  .checkin-card-body {
+    padding: 24px 28px;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+
+  .field-label {
+    font-size: 11px;
+    font-weight: 500;
+    color: var(--gray-400);
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    display: block;
+    margin-bottom: 8px;
+  }
+
+  .input-row {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    background: var(--beige-100);
+    border: 0.5px solid var(--border);
+    border-radius: 10px;
+    padding: 0 14px;
+    height: 44px;
+    transition: border-color 0.15s;
+  }
+
+  .input-row:focus-within {
+    border-color: var(--green-400);
+    background: white;
+  }
+
+  .input-row svg { opacity: 0.35; flex-shrink: 0; }
+
+  .input-row input {
+    background: none;
+    border: none;
+    outline: none;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 14px;
+    color: var(--gray-900);
+    width: 100%;
+  }
+
+  .input-row input::placeholder { color: var(--gray-400); }
+
+  .big-checkin-btn {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    background: var(--green-600);
+    border: none;
+    border-radius: 14px;
+    padding: 16px 20px;
+    cursor: pointer;
+    transition: background 0.15s, transform 0.1s;
+    width: 100%;
+    text-align: left;
+  }
+
+  .big-checkin-btn:hover { background: var(--green-800); }
+  .big-checkin-btn:active { transform: scale(0.98); }
+  .big-checkin-btn.done { background: var(--green-800); cursor: default; }
+
+  .btn-orb {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    border: 2px solid rgba(255,255,255,0.4);
+    background: rgba(255,255,255,0.12);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    transition: all 0.25s;
+  }
+
+  .big-checkin-btn.done .btn-orb {
+    background: white;
+    border-color: white;
+  }
+
+  .btn-label {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 15px;
+    font-weight: 500;
+    color: white;
+    display: block;
+    line-height: 1.2;
+  }
+
+  .btn-sublabel {
+    font-size: 12px;
+    color: rgba(255,255,255,0.6);
+    display: block;
+    margin-top: 2px;
+  }
+
+  .confirmation-panel {
+    background: var(--green-50);
+    border: 0.5px solid var(--green-100);
+    border-radius: 12px;
+    padding: 14px 16px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    opacity: 0;
+    transform: translateY(4px);
+    transition: opacity 0.3s, transform 0.3s;
+    pointer-events: none;
+  }
+
+  .confirmation-panel.visible {
+    opacity: 1;
+    transform: translateY(0);
+    pointer-events: auto;
+  }
+
+  .confirm-icon {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    background: white;
+    border: 1.5px solid var(--green-200);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+  }
+
+  .confirm-text strong {
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--green-800);
+    display: block;
+  }
+
+  .confirm-text span {
+    font-size: 12px;
+    color: var(--green-600);
+  }
+
+  /* ── STATS ── */
+  .stats-section {
+    padding: 0 40px 60px;
+    max-width: 1100px;
+    margin: 0 auto;
+  }
+
+  .stats-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 14px;
+  }
+
+  .stat-card {
+    background: white;
+    border: 0.5px solid var(--border);
+    border-radius: 16px;
+    padding: 20px 22px;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    transition: transform 0.15s;
+  }
+
+  .stat-card:hover { transform: translateY(-1px); }
+
+  .stat-icon {
+    width: 44px;
+    height: 44px;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+  }
+
+  .stat-num {
+    font-family: 'Lora', serif;
+    font-size: 24px;
+    font-weight: 500;
+    line-height: 1.1;
+  }
+
+  .stat-desc {
+    font-size: 12.5px;
+    color: var(--gray-500);
+    margin-top: 2px;
+  }
+
+  .stat-note {
+    font-size: 11px;
+    color: var(--gray-400);
+    margin-top: 1px;
+  }
+
+  /* ── COMMUNITY TABLE ── */
+  .community-section {
+    padding: 0 40px 80px;
+    max-width: 1100px;
+    margin: 0 auto;
+  }
+
+  .section-header {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    margin-bottom: 20px;
+  }
+
+  .section-title {
+    font-family: 'Lora', serif;
+    font-size: 22px;
+    font-weight: 500;
+    color: var(--gray-900);
+  }
+
+  .section-sub {
+    font-size: 13px;
+    color: var(--gray-500);
+    margin-top: 4px;
+  }
+
+  .view-all-link {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    font-size: 13px;
+    color: var(--green-600);
+    text-decoration: none;
+    font-weight: 500;
+    transition: gap 0.15s;
+  }
+
+  .view-all-link:hover { gap: 8px; }
+
+  .community-card {
+    background: white;
+    border-radius: 20px;
+    border: 0.5px solid var(--border);
+    overflow: hidden;
+    box-shadow: 0 2px 16px rgba(0,0,0,0.04);
+  }
+
+  .community-toolbar {
+    padding: 16px 24px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-bottom: 0.5px solid var(--border-light);
+    background: var(--beige-50);
+  }
+
+  .toolbar-filters {
+    display: flex;
+    gap: 8px;
+  }
+
+  .filter-btn {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 12px;
+    font-weight: 500;
+    padding: 5px 12px;
+    border-radius: 20px;
+    border: 0.5px solid var(--border);
+    background: white;
+    color: var(--gray-500);
+    cursor: pointer;
+    transition: all 0.15s;
+  }
+
+  .filter-btn.active {
+    background: var(--green-600);
+    border-color: var(--green-600);
+    color: white;
+  }
+
+  .filter-btn:hover:not(.active) { border-color: var(--green-400); color: var(--green-600); }
+
+  .toolbar-right {
+    font-size: 12px;
+    color: var(--gray-400);
+  }
+
+  table {
+    width: 100%;
+    border-collapse: collapse;
+  }
+
+  thead th {
+    padding: 11px 24px;
+    text-align: left;
+    font-size: 11px;
+    font-weight: 500;
+    color: var(--gray-400);
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    background: var(--beige-50);
+    border-bottom: 0.5px solid var(--border-light);
+  }
+
+  tbody td {
+    padding: 13px 24px;
+    border-bottom: 0.5px solid var(--border-light);
+    vertical-align: middle;
+  }
+
+  tbody tr:last-child td { border-bottom: none; }
+
+  tbody tr {
+    transition: background 0.12s;
+  }
+
+  tbody tr:hover td { background: var(--beige-50); }
+
+  tbody tr.highlight td { background: #F0F8E8; }
+
+  .empty-row td {
+    text-align: center;
+    color: var(--gray-500);
+    padding: 28px 24px;
+    white-space: normal;
+  }
+
+  .user-cell {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+
+  .avatar {
+    width: 34px;
+    height: 34px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 11px;
+    font-weight: 500;
+    flex-shrink: 0;
+    position: relative;
+  }
+
+  .avatar-ring {
+    position: absolute;
+    inset: -2px;
+    border-radius: 50%;
+    border: 1.5px solid var(--green-200);
+  }
+
+  .username {
+    font-size: 13.5px;
+    font-weight: 500;
+    color: var(--gray-900);
+  }
+
+  .username-you {
+    font-size: 11px;
+    color: var(--green-600);
+    font-weight: 400;
+    margin-left: 6px;
+    background: var(--green-50);
+    padding: 1px 6px;
+    border-radius: 10px;
+  }
+
+  .badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    padding: 4px 10px;
+    border-radius: 20px;
+    font-size: 11.5px;
+    font-weight: 500;
+    white-space: nowrap;
+  }
+
+  .badge.in {
+    background: var(--green-50);
+    color: var(--green-600);
+    border: 0.5px solid var(--green-100);
+  }
+
+  .badge.pending {
+    background: var(--beige-200);
+    color: var(--gray-500);
+    border: 0.5px solid rgba(0,0,0,0.07);
+  }
+
+  .badge-dot {
+    width: 5px;
+    height: 5px;
+    border-radius: 50%;
+  }
+
+  .badge.in .badge-dot { background: var(--green-400); }
+  .badge.pending .badge-dot { background: var(--gray-400); }
+
+  .streak-cell {
+    font-size: 13.5px;
+    font-weight: 500;
+    color: var(--gray-900);
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+
+  .streak-bar {
+    display: flex;
+    gap: 2px;
+  }
+
+  .streak-pip {
+    width: 4px;
+    height: 14px;
+    border-radius: 2px;
+    background: var(--green-100);
+  }
+
+  .streak-pip.filled { background: var(--green-400); }
+
+  .last-seen {
+    font-size: 12.5px;
+    color: var(--gray-500);
+  }
+
+  /* ── FEATURES SECTION ── */
+  .features-section {
+    background: white;
+    border-top: 0.5px solid var(--border);
+    border-bottom: 0.5px solid var(--border);
+    padding: 80px 40px;
+    margin-bottom: 0;
+  }
+
+  .features-inner {
+    max-width: 1100px;
+    margin: 0 auto;
+  }
+
+  .features-title {
+    font-family: 'Lora', serif;
+    font-size: 36px;
+    font-weight: 500;
+    color: var(--gray-900);
+    text-align: center;
+    margin-bottom: 10px;
+  }
+
+  .features-sub {
+    text-align: center;
+    font-size: 15px;
+    color: var(--gray-500);
+    margin-bottom: 52px;
+  }
+
+  .features-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+  }
+
+  .feature-card {
+    background: var(--beige-50);
+    border: 0.5px solid var(--border);
+    border-radius: 16px;
+    padding: 28px 24px;
+    transition: transform 0.15s;
+  }
+
+  .feature-card:hover { transform: translateY(-2px); }
+
+  .feature-icon {
+    width: 48px;
+    height: 48px;
+    border-radius: 14px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 16px;
+  }
+
+  .feature-name {
+    font-family: 'Lora', serif;
+    font-size: 17px;
+    font-weight: 500;
+    color: var(--gray-900);
+    margin-bottom: 8px;
+  }
+
+  .feature-desc {
+    font-size: 13.5px;
+    color: var(--gray-500);
+    line-height: 1.65;
+  }
+
+  /* ── FOOTER ── */
+  footer {
+    background: var(--beige-100);
+    border-top: 0.5px solid var(--border);
+    padding: 40px;
+    text-align: center;
+  }
+
+  .footer-inner {
+    max-width: 1100px;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .footer-copy {
+    font-size: 13px;
+    color: var(--gray-400);
+  }
+
+  .footer-links {
+    display: flex;
+    gap: 24px;
+  }
+
+  .footer-links a {
+    font-size: 13px;
+    color: var(--gray-400);
+    text-decoration: none;
+    transition: color 0.15s;
+  }
+
+  .footer-links a:hover { color: var(--green-600); }
+
+  /* ── ANIMATIONS ── */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .anim { opacity: 0; animation: fadeUp 0.5s ease forwards; }
+  .anim-1 { animation-delay: 0.05s; }
+  .anim-2 { animation-delay: 0.1s; }
+  .anim-3 { animation-delay: 0.15s; }
+  .anim-4 { animation-delay: 0.2s; }
+  .anim-5 { animation-delay: 0.25s; }
+  .anim-6 { animation-delay: 0.3s; }
+
+  /* ── TOAST ── */
+  .toast {
+    position: fixed;
+    bottom: 32px;
+    right: 32px;
+    background: var(--gray-900);
+    color: white;
+    font-size: 13px;
+    padding: 12px 18px;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    transform: translateY(80px);
+    opacity: 0;
+    transition: all 0.3s;
+    z-index: 999;
+    pointer-events: none;
+    max-width: 280px;
+  }
+
+  .toast.show {
+    transform: translateY(0);
+    opacity: 1;
+  }
+
+  .toast-icon {
+    width: 22px;
+    height: 22px;
+    border-radius: 50%;
+    background: var(--green-600);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+  }
+
+  /* ── MODAL ── */
+  .modal-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(44,44,42,0.5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 200;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.2s;
+    backdrop-filter: blur(4px);
+  }
+
+  .modal-overlay.open {
+    opacity: 1;
+    pointer-events: auto;
+  }
+
+  .modal {
+    background: white;
+    border-radius: 20px;
+    padding: 36px;
+    max-width: 400px;
+    width: 90%;
+    text-align: center;
+    transform: scale(0.95);
+    transition: transform 0.2s;
+  }
+
+  .modal-overlay.open .modal {
+    transform: scale(1);
+  }
+
+  .modal-emoji {
+    font-size: 48px;
+    margin-bottom: 16px;
+    display: block;
+  }
+
+  .modal-title {
+    font-family: 'Lora', serif;
+    font-size: 22px;
+    font-weight: 500;
+    margin-bottom: 10px;
+    color: var(--gray-900);
+  }
+
+  .modal-sub {
+    font-size: 14px;
+    color: var(--gray-500);
+    margin-bottom: 24px;
+    line-height: 1.6;
+  }
+
+  .modal-close {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 14px;
+    font-weight: 500;
+    color: white;
+    background: var(--green-600);
+    border: none;
+    border-radius: 10px;
+    padding: 12px 28px;
+    cursor: pointer;
+    transition: background 0.15s;
+  }
+
+  .modal-close:hover { background: var(--green-800); }
+
+  /* ── SCROLL ANIM ── */
+  .reveal {
+    opacity: 0;
+    transform: translateY(16px);
+    transition: opacity 0.5s, transform 0.5s;
+  }
+
+  .reveal.visible {
+    opacity: 1;
+    transform: none;
+  }
+
+
+  /* ── NEW: VALIDATION + RESPONSIVE ── */
+  .field-error {
+    min-height: 18px;
+    margin-top: 6px;
+    font-size: 12px;
+    color: var(--pink);
+  }
+
+  .input-row.error {
+    border-color: var(--pink);
+    background: var(--pink-light);
+  }
+
+  .visually-hidden {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0,0,0,0);
+    white-space: nowrap;
+    border: 0;
+  }
+
+
+
+  /* ── EXTRA APP FEATURES ── */
+  .support-actions {
+    margin-top: 22px;
+    display: flex;
+    gap: 12px;
+    flex-wrap: wrap;
+  }
+
+  .btn-warning {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--pink);
+    background: var(--pink-light);
+    border: 0.5px solid rgba(153,53,86,0.25);
+    border-radius: 12px;
+    padding: 12px 18px;
+    cursor: pointer;
+    transition: transform 0.1s, background 0.15s;
+  }
+
+  .btn-warning:hover { background: #f7dde7; }
+  .btn-warning:active { transform: scale(0.98); }
+
+  .reflection-panel {
+    background: var(--beige-50);
+    border: 0.5px solid var(--border);
+    border-radius: 14px;
+    padding: 16px;
+  }
+
+  .reflection-title {
+    font-family: 'Lora', serif;
+    font-size: 17px;
+    font-weight: 500;
+    margin-bottom: 6px;
+  }
+
+  .reflection-sub {
+    font-size: 12.5px;
+    color: var(--gray-500);
+    margin-bottom: 12px;
+  }
+
+  .mood-options {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+    margin-bottom: 12px;
+  }
+
+  .mood-option {
+    font-family: 'DM Sans', sans-serif;
+    border: 0.5px solid var(--border);
+    background: white;
+    color: var(--gray-700);
+    border-radius: 999px;
+    padding: 7px 11px;
+    cursor: pointer;
+    font-size: 12.5px;
+  }
+
+  .mood-option.active {
+    background: var(--green-600);
+    border-color: var(--green-600);
+    color: white;
+  }
+
+  .reflection-panel textarea,
+  .urge-box textarea {
+    width: 100%;
+    min-height: 82px;
+    resize: vertical;
+    border: 0.5px solid var(--border);
+    border-radius: 10px;
+    padding: 10px 12px;
+    font: inherit;
+    background: white;
+    color: var(--gray-900);
+    outline: none;
+  }
+
+  .reflection-panel textarea:focus,
+  .urge-box textarea:focus { border-color: var(--green-400); }
+
+  .reflection-actions {
+    display: flex;
+    gap: 10px;
+    margin-top: 12px;
+    flex-wrap: wrap;
+  }
+
+  .btn-small {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 12.5px;
+    font-weight: 500;
+    border-radius: 9px;
+    border: 0.5px solid var(--border);
+    padding: 9px 13px;
+    cursor: pointer;
+    background: white;
+    color: var(--gray-700);
+  }
+
+  .btn-small.primary {
+    background: var(--green-600);
+    border-color: var(--green-600);
+    color: white;
+  }
+
+  .progress-section {
+    padding: 0 40px 72px;
+    max-width: 1100px;
+    margin: 0 auto;
+  }
+
+  .progress-grid {
+    display: grid;
+    grid-template-columns: 1.1fr 0.9fr;
+    gap: 18px;
+  }
+
+  .progress-card {
+    background: white;
+    border: 0.5px solid var(--border);
+    border-radius: 20px;
+    padding: 24px;
+    box-shadow: 0 2px 16px rgba(0,0,0,0.04);
+  }
+
+  .progress-card-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    margin-bottom: 18px;
+  }
+
+  .progress-card h3 {
+    font-family: 'Lora', serif;
+    font-size: 21px;
+    font-weight: 500;
+  }
+
+  .calendar-controls { display: flex; gap: 8px; }
+  .calendar-controls button {
+    width: 34px;
+    height: 34px;
+    border-radius: 9px;
+    border: 0.5px solid var(--border);
+    background: var(--beige-50);
+    cursor: pointer;
+    color: var(--gray-700);
+  }
+
+  .calendar-grid {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 7px;
+  }
+
+  .calendar-weekday {
+    font-size: 10.5px;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    color: var(--gray-400);
+    text-align: center;
+  }
+
+  .calendar-day {
+    min-height: 44px;
+    border-radius: 11px;
+    border: 0.5px solid var(--border-light);
+    background: var(--beige-50);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    font-size: 13px;
+    color: var(--gray-500);
+  }
+
+  .calendar-day.checked {
+    background: var(--green-50);
+    border-color: var(--green-100);
+    color: var(--green-800);
+    font-weight: 600;
+  }
+
+  .calendar-day.today { outline: 2px solid var(--amber); outline-offset: 2px; }
+  .calendar-day.blank { background: transparent; border-color: transparent; }
+  .calendar-empty { grid-column: 1 / -1; color: var(--gray-500); padding: 20px; text-align: center; }
+  .calendar-mood { position: absolute; bottom: 4px; right: 6px; font-size: 10px; opacity: 0.7; }
+
+  .milestone-list {
+    display: grid;
+    gap: 10px;
+  }
+
+  .milestone {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    border: 0.5px solid var(--border);
+    border-radius: 14px;
+    padding: 12px;
+    background: var(--beige-50);
+  }
+
+  .milestone.locked { opacity: 0.45; filter: grayscale(1); }
+  .milestone.unlocked { background: var(--green-50); border-color: var(--green-100); }
+  .milestone-emoji { font-size: 25px; width: 34px; text-align: center; }
+  .milestone strong { display: block; font-size: 13.5px; color: var(--gray-900); }
+  .milestone span { display: block; font-size: 12px; color: var(--gray-500); margin-top: 1px; }
+
+  .mini-badges {
+    margin-top: 5px;
+    display: flex;
+    gap: 5px;
+    flex-wrap: wrap;
+  }
+
+  .mini-badges span {
+    font-size: 10.5px;
+    background: var(--amber-light);
+    color: var(--amber);
+    border-radius: 999px;
+    padding: 2px 6px;
+  }
+
+  .urge-box { text-align: left; }
+  .urge-box p { color: var(--gray-500); font-size: 14px; line-height: 1.6; margin-bottom: 14px; }
+  .breathing-card {
+    background: var(--blue-light);
+    border: 0.5px solid rgba(24,95,165,0.18);
+    border-radius: 14px;
+    padding: 14px;
+    margin-bottom: 14px;
+    color: var(--blue);
+    font-size: 13px;
+  }
+
+  .urge-range {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin: 12px 0;
+    font-size: 12.5px;
+    color: var(--gray-500);
+  }
+
+  .urge-range input { width: 100%; }
+
+
+
+  .private-dashboard-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 10px;
+    margin-bottom: 18px;
+  }
+
+  .private-stat {
+    background: var(--beige-50);
+    border: 0.5px solid var(--border);
+    border-radius: 14px;
+    padding: 14px;
+  }
+
+  .private-stat strong {
+    display: block;
+    font-family: 'Lora', serif;
+    font-size: 24px;
+    color: var(--green-600);
+    line-height: 1.1;
+  }
+
+  .private-stat span { font-size: 12px; color: var(--gray-500); }
+
+  .journal-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 18px;
+    margin-top: 18px;
+  }
+
+  .journal-card {
+    background: white;
+    border: 0.5px solid var(--border);
+    border-radius: 20px;
+    padding: 22px;
+    box-shadow: 0 2px 16px rgba(0,0,0,0.04);
+  }
+
+  .journal-card h3 {
+    font-family: 'Lora', serif;
+    font-size: 20px;
+    font-weight: 500;
+    margin-bottom: 8px;
+  }
+
+  .journal-card p { color: var(--gray-500); font-size: 13.5px; margin-bottom: 12px; }
+  .journal-card textarea,
+  .journal-card input,
+  .journal-card select {
+    width: 100%;
+    border: 0.5px solid var(--border);
+    border-radius: 10px;
+    padding: 10px 12px;
+    font: inherit;
+    background: var(--beige-50);
+    color: var(--gray-900);
+    margin-bottom: 10px;
+    outline: none;
+  }
+
+  .journal-card textarea:focus,
+  .journal-card input:focus,
+  .journal-card select:focus { border-color: var(--green-400); background: white; }
+  .journal-card textarea { min-height: 90px; resize: vertical; }
+
+  .privacy-options {
+    display: grid;
+    gap: 10px;
+    margin: 14px 0 16px;
+  }
+
+  .privacy-option {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    padding: 10px 12px;
+    border: 0.5px solid var(--border);
+    border-radius: 12px;
+    background: var(--beige-50);
+  }
+
+  .privacy-option input {
+    width: auto;
+    margin: 3px 0 0;
+    flex-shrink: 0;
+  }
+
+  .privacy-option strong {
+    display: block;
+    font-size: 13.5px;
+    font-weight: 500;
+    color: var(--gray-900);
+  }
+
+  .privacy-option span {
+    display: block;
+    font-size: 12px;
+    color: var(--gray-500);
+    line-height: 1.4;
+    margin-top: 1px;
+  }
+
+  .privacy-muted, .mini-mood {
+    display: inline-flex;
+    margin-top: 4px;
+    font-size: 11.5px;
+    color: var(--gray-500);
+    background: var(--beige-200);
+    border-radius: 999px;
+    padding: 2px 8px;
+  }
+
+  .mini-mood { background: var(--blue-light); color: var(--blue); }
+
+  .quote-card {
+    background: linear-gradient(135deg, var(--green-50), var(--beige-50));
+    border: 0.5px solid var(--green-100);
+  }
+
+  .quote-text {
+    font-family: 'Lora', serif;
+    font-size: 19px;
+    color: var(--green-800);
+    line-height: 1.55;
+    margin: 8px 0 14px;
+  }
+
+  .mini-history {
+    list-style: none;
+    display: grid;
+    gap: 8px;
+    max-height: 220px;
+    overflow: auto;
+  }
+
+  .mini-history li {
+    background: var(--beige-50);
+    border: 0.5px solid var(--border-light);
+    border-radius: 12px;
+    padding: 10px 12px;
+    font-size: 12.5px;
+    color: var(--gray-600, #5F5E5A);
+  }
+
+  .mini-history li strong { display: block; color: var(--gray-900); font-size: 12.5px; margin-bottom: 2px; }
+  .mini-history li span { display: block; color: var(--gray-500); line-height: 1.45; }
+
+  .reasons-preview {
+    background: var(--green-50);
+    border: 0.5px solid var(--green-100);
+    border-radius: 12px;
+    padding: 12px;
+    font-size: 13px;
+    color: var(--green-800);
+    margin-bottom: 12px;
+    line-height: 1.55;
+  }
+
+  .encourage-btn {
+    border: 0.5px solid var(--green-100);
+    background: var(--green-50);
+    color: var(--green-600);
+    border-radius: 999px;
+    padding: 5px 10px;
+    cursor: pointer;
+    font-size: 12px;
+    white-space: nowrap;
+  }
+
+  .encourage-btn:disabled { opacity: 0.45; cursor: not-allowed; }
+
+  .timer-display {
+    font-family: 'Lora', serif;
+    font-size: 36px;
+    color: var(--blue);
+    text-align: center;
+    margin: 10px 0;
+  }
+
+  .urge-reasons {
+    background: var(--amber-light);
+    border: 0.5px solid rgba(186,117,23,0.2);
+    border-radius: 12px;
+    padding: 12px;
+    color: var(--amber);
+    font-size: 13px;
+    margin-bottom: 14px;
+    line-height: 1.5;
+  }
+
+  .reminder-row { display: flex; gap: 10px; align-items: center; flex-wrap: wrap; }
+  .reminder-row input { max-width: 140px; margin: 0; }
+
+  @media (max-width: 900px) {
+    nav { padding: 0 18px; height: auto; min-height: 60px; gap: 14px; flex-wrap: wrap; }
+    .nav-links { order: 3; width: 100%; justify-content: center; gap: 18px; padding-bottom: 12px; }
+    .nav-cta { gap: 8px; }
+    .hero { grid-template-columns: 1fr; gap: 32px; padding: 56px 20px 40px; }
+    .hero-title { font-size: 40px; }
+    .hero-desc { max-width: none; }
+    .stats-section, .community-section, .progress-section { padding-left: 20px; padding-right: 20px; }
+    .progress-grid, .journal-grid { grid-template-columns: 1fr; }
+    .private-dashboard-grid { grid-template-columns: repeat(2, 1fr); }
+    .stats-grid, .features-grid { grid-template-columns: 1fr; }
+    .features-section { padding: 56px 20px; }
+    .section-header { align-items: flex-start; flex-direction: column; gap: 12px; }
+    .community-card { overflow-x: auto; }
+    table { min-width: 820px; }
+    .footer-inner { flex-direction: column; gap: 18px; }
+  }
+
+  @media (max-width: 520px) {
+    body { font-size: 14px; }
+    .logo { font-size: 15px; }
+    .nav-links { display: none; }
+    .btn-ghost, .btn-primary { padding: 7px 11px; font-size: 12px; }
+    .hero { padding-top: 38px; }
+    .hero-title { font-size: 32px; }
+    .hero-actions { align-items: stretch; flex-direction: column; }
+    .btn-lg { justify-content: center; width: 100%; }
+    .hero-social-proof { align-items: flex-start; }
+    .checkin-card-header { padding: 22px 20px; flex-direction: column; align-items: flex-start; gap: 12px; }
+    .checkin-card-body { padding: 20px; }
+    .stat-card { align-items: flex-start; }
+    .community-toolbar { align-items: flex-start; flex-direction: column; gap: 12px; }
+    .toolbar-filters { flex-wrap: wrap; }
+    .features-title { font-size: 29px; }
+    .toast { left: 16px; right: 16px; bottom: 18px; max-width: none; }
+    .calendar-day { min-height: 38px; font-size: 12px; }
+    .progress-card, .journal-card { padding: 18px; }
+    .private-dashboard-grid { grid-template-columns: 1fr; }
+  }
+
+</style>
+
+<!-- PWA / mobile app support -->
+<meta name="theme-color" content="#3B6D11">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="apple-mobile-web-app-title" content="No Contact">
+<link rel="manifest" href="/manifest.webmanifest">
+<link rel="apple-touch-icon" href="/icons/icon-192.svg">
+
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="#" class="logo">
+    <div class="logo-mark"><div class="logo-leaf"></div></div>
+    No Contact Challenge
+  </a>
+  <ul class="nav-links">
+    <li><a href="#dashboard" class="active">Dashboard</a></li>
+    <li><a href="#community">Community</a></li>
+    <li><a href="#progress">Progress</a></li>
+    <li><a href="#features">Resources</a></li>
+  </ul>
+  <div class="nav-cta">
+    <a href="#" class="btn-ghost" id="signInBtn">Sign in</a>
+    <button type="button" class="btn-ghost" id="installAppBtn" hidden>Install app</button>
+    <a href="#dashboard" class="btn-primary">Get started</a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero" id="dashboard">
+  <div class="hero-left">
+    <div class="hero-tag anim anim-1">
+      <div class="hero-tag-dot"></div>
+      <span id="todayCheckedHero">0</span> members checked in today
+    </div>
+    <h1 class="hero-title anim anim-2">Build <em>healing habits,</em><br>one day at a time.</h1>
+    <p class="hero-desc anim anim-3">Track your daily no-contact progress, build resilience, and find strength in a supportive community of people on the same journey.</p>
+    <div class="hero-actions anim anim-4">
+      <a href="#dashboard" class="btn-lg" id="startBtn">
+        <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 8l4 4 6-7" stroke="white" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        Start your journey
+      </a>
+      <div class="hero-social-proof">
+        <div class="hero-avatars">
+          <div class="av" style="background:#EAF3DE;color:#3B6D11">M</div>
+          <div class="av" style="background:#E6F1FB;color:#185FA5">B</div>
+          <div class="av" style="background:#FAEEDA;color:#BA7517">H</div>
+          <div class="av" style="background:#FBEAF0;color:#993556">C</div>
+        </div>
+        Be the first member to check in
+      </div>
+    </div>
+    <div class="support-actions anim anim-5">
+      <button type="button" class="btn-warning" id="urgeBtn">I feel like contacting them</button>
+    </div>
+  </div>
+
+  <!-- CHECKIN CARD -->
+  <div class="hero-right">
+    <div class="checkin-card">
+      <div class="checkin-card-header">
+        <div class="checkin-card-title">Today's check-in</div>
+        <div class="streak-badge">
+          <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M6 1c0 0-3 2.5-3 5.5a3 3 0 006 0C9 3.5 6 1 6 1Z" fill="#BA7517"/></svg>
+          <span id="streakCount">0 day streak</span>
+        </div>
+      </div>
+      <div class="checkin-card-body">
+        <div>
+          <span class="field-label">Your account</span>
+          <div class="input-row">
+            <svg width="15" height="15" viewBox="0 0 15 15" fill="none"><circle cx="7.5" cy="5.5" r="2.8" stroke="#2C2C2A" stroke-width="1.2"/><path d="M2 14c0-3.04 2.46-5.5 5.5-5.5S13 10.96 13 14" stroke="#2C2C2A" stroke-width="1.2" stroke-linecap="round"/></svg>
+            <input type="text" id="usernameInput" placeholder="Sign in to track privately" readonly autocomplete="off" aria-describedby="usernameError" />
+          </div>
+          <p id="usernameError" class="field-error" aria-live="polite"></p>
+        </div>
+        <div>
+          <span class="field-label">Daily commitment</span>
+          <button class="big-checkin-btn" id="checkinBtn" onclick="handleCheckin()">
+            <div class="btn-orb" id="btnOrb">
+              <svg id="checkMark" width="16" height="16" viewBox="0 0 16 16" fill="none" style="display:none; opacity:0">
+                <path d="M3.5 8L7 11.5L12.5 5" stroke="#3B6D11" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </div>
+            <div>
+              <span class="btn-label" id="btnLabel">I stayed no-contact today</span>
+              <span class="btn-sublabel" id="btnSublabel">Sign in, then record your daily check-in</span>
+            </div>
+          </button>
+        </div>
+        <div class="confirmation-panel" id="confirmPanel">
+          <div class="confirm-icon">
+            <svg width="18" height="18" viewBox="0 0 18 18" fill="none"><path d="M4 9L7.5 12.5L14 5.5" stroke="#3B6D11" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </div>
+          <div class="confirm-text">
+            <strong>Daily check-in completed!</strong>
+            <span>You're doing great — keep going.</span>
+          </div>
+        </div>
+        <div class="reflection-panel" id="reflectionPanel" hidden>
+          <div class="reflection-title">Quick daily reflection</div>
+          <p class="reflection-sub">Private to you. This helps your calendar show more than just a streak.</p>
+          <div class="mood-options" aria-label="Choose your mood">
+            <button type="button" class="mood-option" data-mood="Calm">Calm</button>
+            <button type="button" class="mood-option" data-mood="Tempted">Tempted</button>
+            <button type="button" class="mood-option" data-mood="Sad">Sad</button>
+            <button type="button" class="mood-option" data-mood="Strong">Strong</button>
+            <button type="button" class="mood-option" data-mood="Anxious">Anxious</button>
+            <button type="button" class="mood-option" data-mood="Hopeful">Hopeful</button>
+          </div>
+          <textarea id="reflectionNote" maxlength="500" placeholder="Optional note: What helped you stay no-contact today?"></textarea>
+          <div class="reflection-actions">
+            <button type="button" class="btn-small primary" id="saveReflectionBtn">Save reflection</button>
+            <button type="button" class="btn-small" id="skipReflectionBtn">Skip for today</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- STATS -->
+<section class="stats-section">
+  <div class="stats-grid">
+    <div class="stat-card anim anim-4">
+      <div class="stat-icon" style="background:#EAF3DE">
+        <svg width="22" height="22" viewBox="0 0 22 22" fill="none"><circle cx="8" cy="9" r="3" stroke="#3B6D11" stroke-width="1.4"/><circle cx="14" cy="9" r="3" stroke="#3B6D11" stroke-width="1.4"/><path d="M2 19c0-3.31 2.69-6 6-6h6c3.31 0 6 2.69 6 6" stroke="#3B6D11" stroke-width="1.4" stroke-linecap="round"/></svg>
+      </div>
+      <div>
+        <div class="stat-num" id="todayCheckedStat" style="color:#3B6D11">0</div>
+        <div class="stat-desc">Members checked in today</div>
+        <div class="stat-note">Keep showing up!</div>
+      </div>
+    </div>
+    <div class="stat-card anim anim-5">
+      <div class="stat-icon" style="background:#FAEEDA">
+        <svg width="22" height="22" viewBox="0 0 22 22" fill="none"><path d="M11 2l2.4 6.2H20l-5.4 3.9 2.1 6.4L11 14.4l-5.7 4.1 2.1-6.4L2 8.2h6.6L11 2Z" stroke="#BA7517" stroke-width="1.4" stroke-linejoin="round"/></svg>
+      </div>
+      <div>
+        <div class="stat-num" id="longestStreakStat" style="color:#BA7517">0 days</div>
+        <div class="stat-desc">Longest streak this week</div>
+        <div class="stat-note">Amazing consistency!</div>
+      </div>
+    </div>
+    <div class="stat-card anim anim-6">
+      <div class="stat-icon" style="background:#E6F1FB">
+        <svg width="22" height="22" viewBox="0 0 22 22" fill="none"><path d="M11 3c0 0-5 4-5 9a5 5 0 0010 0c0-5-5-9-5-9Z" stroke="#185FA5" stroke-width="1.4" stroke-linejoin="round"/><path d="M11 14v2" stroke="#185FA5" stroke-width="1.4" stroke-linecap="round"/></svg>
+      </div>
+      <div>
+        <div class="stat-num" id="supportScoreStat" style="color:#185FA5">4.8 / 5</div>
+        <div class="stat-desc">Community support score</div>
+        <div class="stat-note">Based on help & positivity</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- PERSONAL PROGRESS -->
+<section class="progress-section" id="progress">
+  <div class="section-header reveal">
+    <div>
+      <h2 class="section-title">Your private progress</h2>
+      <p class="section-sub" id="progressHint">Enter a username and check in to unlock your personal calendar and milestones.</p>
+    </div>
+  </div>
+  <div class="progress-card reveal quote-card">
+    <h3>Today’s affirmation</h3>
+    <div class="quote-text" id="dailyQuoteText">One day at a time is still a direction.</div>
+    <div class="reminder-row">
+      <input type="time" id="reminderTime" value="20:00" aria-label="Daily reminder time">
+      <button type="button" class="btn-small primary" id="enableReminderBtn">Enable daily reminder</button>
+      <button type="button" class="btn-small" id="disableReminderBtn">Disable</button>
+    </div>
+  </div>
+
+  <div class="progress-card reveal" style="margin-top:18px">
+    <div class="progress-card-header"><h3>My journey dashboard</h3></div>
+    <div class="private-dashboard-grid">
+      <div class="private-stat"><strong id="privateTotalCheckins">0</strong><span>Total check-ins</span></div>
+      <div class="private-stat"><strong id="privateCurrentStreak">0</strong><span>Current streak</span></div>
+      <div class="private-stat"><strong id="privateLongestStreak">0</strong><span>Longest streak</span></div>
+      <div class="private-stat"><strong id="privateReflectionCount">0</strong><span>Reflections</span></div>
+      <div class="private-stat"><strong id="privateUrgeCount">0</strong><span>Urge moments</span></div>
+      <div class="private-stat"><strong id="privateMessageCount">0</strong><span>Unsent messages</span></div>
+      <div class="private-stat"><strong id="privateRelapseCount">0</strong><span>Gentle resets</span></div>
+      <div class="private-stat"><strong id="privateEncouragementCount">0</strong><span>Encouragements</span></div>
+    </div>
+    <ul class="mini-history" id="recentMoodsList"><li>No reflections yet.</li></ul>
+  </div>
+
+  <div class="progress-grid" style="margin-top:18px">
+    <div class="progress-card reveal">
+      <div class="progress-card-header">
+        <h3 id="calendarTitle">Progress calendar</h3>
+        <div class="calendar-controls">
+          <button type="button" id="prevMonthBtn" aria-label="Previous month">‹</button>
+          <button type="button" id="nextMonthBtn" aria-label="Next month">›</button>
+        </div>
+      </div>
+      <div class="calendar-grid" id="calendarGrid">
+        <div class="calendar-empty">No calendar yet.</div>
+      </div>
+    </div>
+    <div class="progress-card reveal">
+      <div class="progress-card-header">
+        <h3>Milestones</h3>
+      </div>
+      <div class="milestone-list" id="milestoneList">
+        <div class="milestone locked"><div class="milestone-emoji">🌱</div><div><strong>1 day</strong><span>I chose myself</span></div></div>
+        <div class="milestone locked"><div class="milestone-emoji">🌿</div><div><strong>7 days</strong><span>One week strong</span></div></div>
+        <div class="milestone locked"><div class="milestone-emoji">🏅</div><div><strong>30 days</strong><span>New chapter</span></div></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="journal-grid">
+    <div class="journal-card reveal">
+      <h3>Reasons I started</h3>
+      <p>These are private reminders. They also appear inside the emergency urge screen.</p>
+      <div class="reasons-preview" id="reasonsPreview">Save your reasons, and the urge button will remind you why you started.</div>
+      <textarea id="reasonWhy" placeholder="Why am I choosing no-contact?"></textarea>
+      <textarea id="reasonPain" placeholder="What pain do I not want to repeat?"></textarea>
+      <textarea id="reasonFuture" placeholder="What kind of life am I choosing now?"></textarea>
+      <button type="button" class="btn-small primary" id="saveReasonsBtn">Save reasons</button>
+    </div>
+
+    <div class="journal-card reveal">
+      <h3>Privacy controls</h3>
+      <p>Choose what other members can see. Your reasons, notes, urge logs, and message graveyard always stay private.</p>
+      <div class="privacy-options">
+        <label class="privacy-option"><input type="checkbox" data-privacy="showInCommunity" checked><div><strong>Show me in the community dashboard</strong><span>Turn this off to use the app privately without appearing publicly.</span></div></label>
+        <label class="privacy-option"><input type="checkbox" data-privacy="showStreak" checked><div><strong>Show my current streak</strong><span>Hide your streak while still tracking it privately.</span></div></label>
+        <label class="privacy-option"><input type="checkbox" data-privacy="showLastCheckin" checked><div><strong>Show my last check-in</strong><span>When off, the community sees “Hidden” instead of your last check-in date.</span></div></label>
+        <label class="privacy-option"><input type="checkbox" data-privacy="showMilestones" checked><div><strong>Show my milestone badges</strong><span>Keep achievement badges private if you prefer.</span></div></label>
+        <label class="privacy-option"><input type="checkbox" data-privacy="showMood"><div><strong>Show today’s mood label</strong><span>Off by default. Reflection notes are never public.</span></div></label>
+        <label class="privacy-option"><input type="checkbox" data-privacy="allowEncouragements" checked><div><strong>Allow community encouragements</strong><span>Let other members send a simple anonymous encouragement count.</span></div></label>
+      </div>
+      <button type="button" class="btn-small primary" id="savePrivacyBtn">Save privacy settings</button>
+    </div>
+
+
+    <div class="journal-card reveal">
+      <h3>Account settings</h3>
+      <p id="accountStatusText">Sign in to manage account settings.</p>
+      <label class="field-label">Display name</label>
+      <input id="accountDisplayName" maxlength="32" placeholder="Public display name">
+      <label class="field-label">Email</label>
+      <input id="accountEmail" type="email" maxlength="160" placeholder="you@example.com">
+      <button type="button" class="btn-small primary" id="saveAccountBtn">Save account profile</button>
+      <hr style="border:none;border-top:1px solid var(--border-light);margin:16px 0">
+      <label class="field-label">Current password</label>
+      <input id="currentPassword" type="password" autocomplete="current-password" placeholder="Current password">
+      <label class="field-label">New password</label>
+      <input id="newPassword" type="password" autocomplete="new-password" placeholder="New password, at least 8 characters">
+      <button type="button" class="btn-small" id="changePasswordBtn">Change password</button>
+      <hr style="border:none;border-top:1px solid var(--border-light);margin:16px 0">
+      <div class="reflection-actions">
+        <button type="button" class="btn-small" id="exportDataBtn">Download my data</button>
+        <button type="button" class="btn-small danger" id="deleteAccountBtn">Delete my account</button>
+      </div>
+      <p style="font-size:12px;color:var(--gray-500);margin-top:10px">Export gives you your private app data as JSON. Delete removes your account and private records from this prototype.</p>
+    </div>
+
+    <div class="journal-card reveal">
+      <h3>Message graveyard</h3>
+      <p>Write the message here instead of sending it. Saving it counts as choosing yourself.</p>
+      <input id="graveyardTitle" maxlength="80" placeholder="Title, e.g. What I almost sent">
+      <textarea id="graveyardMessage" maxlength="3000" placeholder="Type the message here, but do not send it."></textarea>
+      <button type="button" class="btn-small primary" id="saveGraveyardBtn">Save as unsent</button>
+      <ul class="mini-history" id="graveyardList" style="margin-top:12px"><li>No unsent messages saved yet.</li></ul>
+    </div>
+
+    <div class="journal-card reveal">
+      <h3>Relapse / reset support</h3>
+      <p>If contact happened, this is not shame. Mark it, learn the trigger, and restart gently.</p>
+      <select id="relapseReason">
+        <option>Slip / reset</option>
+        <option>I contacted them</option>
+        <option>I checked their profile</option>
+        <option>They contacted me and I replied</option>
+        <option>I almost contacted them</option>
+      </select>
+      <textarea id="relapseTrigger" placeholder="What triggered it?"></textarea>
+      <textarea id="relapseNote" placeholder="What safer plan can I try next time?"></textarea>
+      <button type="button" class="btn-small primary" id="saveRelapseBtn">Save reset gently</button>
+      <ul class="mini-history" id="relapseList" style="margin-top:12px"><li>No reset moments saved.</li></ul>
+    </div>
+
+    <div class="journal-card reveal">
+      <h3>Notification reminder</h3>
+      <p>This is a browser reminder for this device. It works while the browser allows notifications and the site is open/active.</p>
+      <div class="reminder-row">
+        <input type="time" id="reminderTimeDuplicate" value="20:00" disabled aria-label="Reminder preview time">
+        <span style="font-size:12px;color:var(--gray-500)">Use the reminder controls in Today’s affirmation.</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- COMMUNITY TABLE -->
+<section class="community-section" id="community">
+  <div class="section-header reveal">
+    <div>
+      <h2 class="section-title">Community Progress Dashboard</h2>
+      <p class="section-sub">See how everyone is doing today — you're not alone in this.</p>
+    </div>
+    <a href="#" class="view-all-link" id="viewAllLink">
+      View full community
+      <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M5 3l4 4-4 4" stroke="#3B6D11" stroke-width="1.4" stroke-linecap="round"/></svg>
+    </a>
+  </div>
+
+  <div class="community-card reveal">
+    <div class="community-toolbar">
+      <div class="toolbar-filters">
+        <button class="filter-btn active" onclick="filterTable('all', this)">All members</button>
+        <button class="filter-btn" onclick="filterTable('in', this)">Checked in</button>
+        <button class="filter-btn" onclick="filterTable('pending', this)">Pending</button>
+      </div>
+      <div class="toolbar-right" id="memberCount">0 members</div>
+    </div>
+    <table>
+      <thead>
+        <tr>
+          <th>Username</th>
+          <th>Today</th>
+          <th>Current streak</th>
+          <th>Last check-in</th>
+          <th>Encourage</th>
+        </tr>
+      </thead>
+      <tbody id="communityTable">
+        <tr class="empty-row">
+          <td colspan="5">No members yet. Enter a username and complete the first check-in to start the community dashboard.</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<!-- FEATURES -->
+<section class="features-section" id="features">
+  <div class="features-inner">
+    <h2 class="features-title reveal">Everything you need to heal</h2>
+    <p class="features-sub reveal">Built with care for people rebuilding their lives, one day at a time.</p>
+    <div class="features-grid">
+      <div class="feature-card reveal">
+        <div class="feature-icon" style="background:#EAF3DE">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none"><path d="M12 3L13.8 8.2H19.4L14.8 11.4L16.6 16.6L12 13.2L7.4 16.6L9.2 11.4L4.6 8.2H10.2L12 3Z" stroke="#3B6D11" stroke-width="1.6" stroke-linejoin="round"/></svg>
+        </div>
+        <div class="feature-name">Daily streaks</div>
+        <p class="feature-desc">Build momentum with consecutive check-ins. Your streak is a powerful reminder of how far you've come and motivation to keep going.</p>
+      </div>
+      <div class="feature-card reveal">
+        <div class="feature-icon" style="background:#E6F1FB">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none"><circle cx="9" cy="10" r="3.5" stroke="#185FA5" stroke-width="1.6"/><circle cx="15" cy="10" r="3.5" stroke="#185FA5" stroke-width="1.6"/><path d="M3 21c0-3.87 2.69-7 6-7h6c3.31 0 6 3.13 6 7" stroke="#185FA5" stroke-width="1.6" stroke-linecap="round"/></svg>
+        </div>
+        <div class="feature-name">Community support</div>
+        <p class="feature-desc">See others on the same path. The community dashboard shows real-time progress, reminding you that healing is a shared human experience.</p>
+      </div>
+      <div class="feature-card reveal">
+        <div class="feature-icon" style="background:#FAEEDA">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none"><path d="M12 4c0 0-6 5-6 11a6 6 0 0012 0c0-6-6-11-6-11Z" stroke="#BA7517" stroke-width="1.6" stroke-linejoin="round"/><path d="M12 17v2" stroke="#BA7517" stroke-width="1.6" stroke-linecap="round"/></svg>
+        </div>
+        <div class="feature-name">Progress tracking</div>
+        <p class="feature-desc">Visualize your healing journey over time. Each day of no contact is a victory worth celebrating and a foundation for emotional freedom.</p>
+      </div>
+      <div class="feature-card reveal">
+        <div class="feature-icon" style="background:#FBEAF0">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none"><path d="M12 21.6C6 18 3 14.4 3 10.5a5 5 0 019-3 5 5 0 019 3C21 14.4 18 18 12 21.6Z" stroke="#993556" stroke-width="1.6" stroke-linejoin="round"/></svg>
+        </div>
+        <div class="feature-name">Mindful accountability</div>
+        <p class="feature-desc">One gentle daily check-in. No pressure, no judgment — just a compassionate space to affirm your commitment to yourself each morning.</p>
+      </div>
+      <div class="feature-card reveal">
+        <div class="feature-icon" style="background:#EAF3DE">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none"><rect x="4" y="4" width="16" height="16" rx="4" stroke="#3B6D11" stroke-width="1.6"/><path d="M8 12h8M8 8h8M8 16h5" stroke="#3B6D11" stroke-width="1.4" stroke-linecap="round"/></svg>
+        </div>
+        <div class="feature-name">Healing resources</div>
+        <p class="feature-desc">Curated articles, guided reflections, and expert advice to help you understand your journey and grow through the difficult moments.</p>
+      </div>
+      <div class="feature-card reveal">
+        <div class="feature-icon" style="background:#E6F1FB">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none"><path d="M12 2l2.4 5.9H21l-5.3 3.9 2 6.2L12 14.5l-5.7 3.5 2-6.2L3 7.9h6.6L12 2Z" stroke="#185FA5" stroke-width="1.6" stroke-linejoin="round"/></svg>
+        </div>
+        <div class="feature-name">Milestone rewards</div>
+        <p class="feature-desc">Celebrate 7-day, 30-day, and 90-day milestones with the community. Every checkpoint is a testament to your strength and resilience.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- PWA / MOBILE APP FEELING -->
+<section class="features-section pwa-section" id="mobile-app">
+  <div class="features-inner">
+    <h2 class="features-title reveal">Use it like a small mobile app</h2>
+    <p class="features-sub reveal">Install to your home screen, open it quickly during urges, and keep a safer offline fallback available.</p>
+    <div class="features-grid">
+      <div class="feature-card reveal">
+        <div class="feature-icon" style="background:#EAF3DE">📱</div>
+        <div class="feature-name">Home-screen install</div>
+        <p class="feature-desc">Supported browsers can install this website as an app-like shortcut with a clean standalone window.</p>
+      </div>
+      <div class="feature-card reveal">
+        <div class="feature-icon" style="background:#E6F1FB">🌿</div>
+        <div class="feature-name">Offline calming page</div>
+        <p class="feature-desc">If the connection drops, the service worker can show a simple offline support page instead of a browser error.</p>
+      </div>
+      <div class="feature-card reveal">
+        <div class="feature-icon" style="background:#FAEEDA">🔔</div>
+        <div class="feature-name">Reminder-ready</div>
+        <p class="feature-desc">The existing browser reminder prototype now pairs with installable app behavior for a more daily-use feeling.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-inner">
+    <div class="logo" style="font-size:14px">
+      <div class="logo-mark" style="width:24px;height:24px"><div class="logo-leaf" style="width:16px;height:16px;top:4px;left:4px"></div></div>
+      No Contact Challenge
+    </div>
+    <p class="footer-copy">© 2026 No Contact Challenge. Built with care for healing and privacy.</p>
+    <div class="footer-links">
+      <a href="/privacy.html">Privacy</a>
+      <a href="/terms.html">Terms</a>
+      <a href="/safety.html">Safety</a>
+      <a href="/support.html">Support</a>
+    </div>
+  </div>
+</footer>
+
+<!-- TOAST -->
+<div class="toast" id="toast" role="status" aria-live="polite">
+  <div class="toast-icon">
+    <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M2.5 6l2.5 2.5 4.5-5" stroke="white" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+  </div>
+  <span id="toastText">Check-in recorded!</span>
+</div>
+
+<!-- MODAL -->
+<div class="modal-overlay" id="modalOverlay" onclick="closeModal(event)" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+  <div class="modal">
+    <span class="modal-emoji">🌿</span>
+    <div class="modal-title" id="modalTitle">You did it!</div>
+    <p class="modal-sub" id="modalMessage">Your check-in has been recorded. Every day of no contact is a step toward the life you deserve.</p>
+    <button class="modal-close" onclick="document.getElementById('modalOverlay').classList.remove('open')">Continue your journey</button>
+  </div>
+</div>
+
+
+<!-- URGE SUPPORT MODAL -->
+<div class="modal-overlay" id="urgeOverlay" onclick="closeUrgeModal(event)" role="dialog" aria-modal="true" aria-labelledby="urgeTitle">
+  <div class="modal urge-box">
+    <span class="modal-emoji">🫶</span>
+    <div class="modal-title" id="urgeTitle">Pause before contacting</div>
+    <p id="urgeMessage">You do not need to decide right now. Try 60 seconds of breathing, write the message here instead of sending it, then wait 20 minutes.</p>
+    <div class="breathing-card">Breathe in for 4 seconds, hold for 4, breathe out for 6. Repeat five times before doing anything else.</div>
+    <div class="urge-reasons" id="urgeReasons">Your saved reasons will appear here.</div>
+    <div class="timer-display" id="urgeTimer">20:00</div>
+    <button type="button" class="btn-small primary" id="startTimerBtn">Start 20-minute pause</button>
+    <textarea id="urgeNote" maxlength="500" placeholder="Write the message here instead of sending it..."></textarea>
+    <div class="urge-range">
+      <span>Urge intensity</span>
+      <input type="range" id="urgeIntensity" min="1" max="10" value="5">
+      <span>10</span>
+    </div>
+    <div class="reflection-actions">
+      <button type="button" class="btn-small primary" id="saveUrgeBtn">Save privately</button>
+      <button type="button" class="btn-small" id="closeUrgeBtn">Close</button>
+    </div>
+  </div>
+</div>
+
+<script src="/app.js"></script>
+</body>
+</html>

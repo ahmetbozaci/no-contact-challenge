@@ -1,0 +1,39 @@
+# Render Blueprint for No Contact Challenge
+# Recommended production setup:
+# - Render Web Service for this Node.js app
+# - Supabase PostgreSQL via DATABASE_URL
+# - Resend via RESEND_API_KEY
+services:
+  - type: web
+    name: no-contact-challenge
+    env: node
+    plan: starter
+    buildCommand: npm install
+    startCommand: npm start
+    healthCheckPath: /api/health
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: TRUST_PROXY
+        value: true
+      - key: STORAGE_DRIVER
+        value: postgres
+      - key: EMAIL_PROVIDER
+        value: resend
+      - key: PGSSLMODE
+        value: require
+      - key: MAX_BODY_BYTES
+        value: 262144
+      # Set these manually in Render Dashboard.
+      - key: APP_URL
+        sync: false
+      - key: ADMIN_PASSWORD
+        sync: false
+      - key: DATABASE_URL
+        sync: false
+      - key: RESEND_API_KEY
+        sync: false
+      - key: EMAIL_FROM
+        sync: false
+      - key: FAIL_ON_CONFIG_WARNING
+        value: true

@@ -1,0 +1,28 @@
+{
+  "name": "no-contact-challenge-backend",
+  "version": "1.0.0",
+  "description": "No Contact Challenge backend with auth, privacy, PWA, optional PostgreSQL storage, and optional real email sending.",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node server.js",
+    "start:json": "STORAGE_DRIVER=json node server.js",
+    "start:postgres": "STORAGE_DRIVER=postgres node server.js",
+    "start:prod": "NODE_ENV=production node server.js",
+    "backup:json": "node scripts/backup-json.js",
+    "restore:json": "node scripts/restore-json.js",
+    "backup:pg": "bash scripts/backup-postgres.sh",
+    "restore:pg": "bash scripts/restore-postgres.sh",
+    "check": "node --check server.js"
+  },
+  "keywords": [
+    "no-contact",
+    "challenge",
+    "node",
+    "backend"
+  ],
+  "license": "MIT",
+  "dependencies": {
+    "pg": "^8.13.1"
+  }
+}
